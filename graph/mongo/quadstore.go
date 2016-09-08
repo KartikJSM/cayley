@@ -381,7 +381,7 @@ func toMongoValue(v quad.Value) value {
 	case quad.IRI:
 		return mongoString{Value: string(d), IsIRI: true}
 	case quad.BNode:
-		return mongoString{Value: string(d), IsBNode: true}
+		return mongoString{Value: string(d.BlankNode()), IsBNode: true}
 	case quad.TypedString:
 		return mongoString{Value: string(d.Value), Type: string(d.Type)}
 	case quad.LangString:
@@ -435,7 +435,7 @@ func toQuadValue(v value) quad.Value {
 		if o, ok := d["iri"]; ok && o.(bool) {
 			return quad.IRI(s)
 		} else if o, ok := d["bnode"]; ok && o.(bool) {
-			return quad.BNode(s)
+			return quad.StringBNode(s)
 		} else if o, ok := d["lang"]; ok && o.(string) != "" {
 			return quad.LangString{
 				Value: quad.String(s),

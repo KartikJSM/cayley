@@ -361,7 +361,7 @@ func nodeValues(h NodeHash, v quad.Value) (int, []interface{}, error) {
 		values = append(values, string(v), true)
 	case quad.BNode:
 		nodeKey = 2
-		values = append(values, string(v), true)
+		values = append(values, string(v.BlankNode()), true)
 	case quad.String:
 		nodeKey = 3
 		values = append(values, escapeNullByte(string(v)))
@@ -636,7 +636,7 @@ func (qs *QuadStore) NameOf(v graph.Value) quad.Value {
 		if iri.Bool {
 			val = quad.IRI(str.String)
 		} else if bnode.Bool {
-			val = quad.BNode(str.String)
+			val = quad.StringBNode(str.String)
 		} else if lang.Valid {
 			val = quad.LangString{
 				Value: quad.String(unescapeNullByte(str.String)),

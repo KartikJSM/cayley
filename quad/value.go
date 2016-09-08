@@ -111,7 +111,7 @@ func StringToValue(v string) Value {
 		if v[0] == '<' && v[len(v)-1] == '>' {
 			return IRI(v[1 : len(v)-1])
 		} else if v[:2] == "_:" {
-			return BNode(v[2:])
+			return StringBNode(v[2:])
 		}
 	}
 	return String(v)
@@ -190,10 +190,17 @@ func (s IRI) String() string      { return `<` + string(s) + `>` }
 func (s IRI) Native() interface{} { return s }
 
 // BNode is an RDF Blank Node (ex: _:name).
-type BNode string
+type BNode interface {
+	Value
+	BlankNode() string
+}
 
-func (s BNode) String() string      { return `_:` + string(s) }
-func (s BNode) Native() interface{} { return s }
+// StringBNode is an blank node represented as string.
+type StringBNode string
+
+func (s StringBNode) String() string      { return `_:` + string(s) }
+func (s StringBNode) BlankNode() string   { return string(s) }
+func (s StringBNode) Native() interface{} { return s }
 
 // Native support for basic types
 

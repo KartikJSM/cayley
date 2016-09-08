@@ -94,7 +94,7 @@ func (it *Comparison) doComparison(val graph.Value) bool {
 		return false
 	case quad.BNode:
 		if cVal2, ok := qval.(quad.BNode); ok {
-			return RunStrOp(string(cVal2), it.op, string(cVal))
+			return RunStrOp(cVal2.BlankNode(), it.op, cVal.BlankNode())
 		}
 		return false
 	case quad.IRI:

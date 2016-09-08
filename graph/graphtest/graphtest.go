@@ -400,7 +400,7 @@ func TestLoadTypedQuads(t testing.TB, gen DatabaseFunc, conf *Config) {
 	w := MakeWriter(t, qs, opts)
 
 	values := []quad.Value{
-		quad.BNode("A"), quad.IRI("name"), quad.String("B"), quad.IRI("graph"),
+		quad.StringBNode("A"), quad.IRI("name"), quad.String("B"), quad.IRI("graph"),
 		quad.IRI("B"), quad.Raw("<type>"),
 		quad.TypedString{Value: "10", Type: "int"},
 		quad.LangString{Value: "value", Lang: "en"},
@@ -612,11 +612,11 @@ var casesCompare = []struct {
 	val    quad.Value
 	expect []quad.Value
 }{
-	{lt, quad.BNode("b"), []quad.Value{
-		quad.BNode("alice"),
+	{lt, quad.StringBNode("b"), []quad.Value{
+		quad.StringBNode("alice"),
 	}},
-	{lte, quad.BNode("bob"), []quad.Value{
-		quad.BNode("alice"), quad.BNode("bob"),
+	{lte, quad.StringBNode("bob"), []quad.Value{
+		quad.StringBNode("alice"), quad.StringBNode("bob"),
 	}},
 	{lt, quad.String("b"), []quad.Value{
 		quad.String("alice"),
@@ -666,7 +666,7 @@ func TestCompareTypedValues(t testing.TB, gen DatabaseFunc, conf *Config) {
 	t4 := t1.Add(time.Hour * 24 * 365)
 
 	err := w.AddQuadSet([]quad.Quad{
-		{quad.BNode("alice"), quad.BNode("bob"), quad.BNode("charlie"), quad.BNode("dani")},
+		{quad.StringBNode("alice"), quad.StringBNode("bob"), quad.StringBNode("charlie"), quad.StringBNode("dani")},
 		{quad.IRI("alice"), quad.IRI("bob"), quad.IRI("charlie"), quad.IRI("dani")},
 		{quad.String("alice"), quad.String("bob"), quad.String("charlie"), quad.String("dani")},
 		{quad.Int(100), quad.Int(112), quad.Int(110), quad.Int(20)},

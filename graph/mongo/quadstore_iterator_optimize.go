@@ -169,7 +169,7 @@ func (qs *QuadStore) optimizeComparison(it *iterator.Comparison) (graph.Iterator
 		}
 	case quad.BNode:
 		constraint = bson.M{
-			base + ".val":   bson.M{name: string(v)},
+			base + ".val":   bson.M{name: string(v.BlankNode())},
 			base + ".bnode": true,
 		}
 	case quad.Int:

@@ -20,7 +20,7 @@ func MakeValue(qv quad.Value) *Value {
 	case quad.IRI:
 		return &Value{&Value_Iri{string(v)}}
 	case quad.BNode:
-		return &Value{&Value_Bnode{string(v)}}
+		return &Value{&Value_Bnode{v.BlankNode()}}
 	case quad.TypedString:
 		return &Value{&Value_TypedStr{&Value_TypedString{
 			Value: string(v.Value),
@@ -83,7 +83,7 @@ func (m *Value) ToNative() (qv quad.Value) {
 	case *Value_Iri:
 		return quad.IRI(v.Iri)
 	case *Value_Bnode:
-		return quad.BNode(v.Bnode)
+		return quad.StringBNode(v.Bnode)
 	case *Value_TypedStr:
 		return quad.TypedString{
 			Value: quad.String(v.TypedStr.Value),

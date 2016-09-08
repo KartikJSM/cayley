@@ -95,7 +95,7 @@ func unEscape(r []rune, spec int, isQuoted, isEscaped bool) quad.Value {
 			return quad.IRI(r[1 : len(r)-1])
 		}
 		if len(r) >= 2 && r[0] == '_' && r[1] == ':' {
-			return quad.BNode(string(r[2:]))
+			return quad.StringBNode(string(r[2:]))
 		}
 	}
 	var val string

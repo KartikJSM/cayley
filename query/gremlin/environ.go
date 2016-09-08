@@ -123,7 +123,7 @@ type cmpOperator struct {
 
 var defaultEnv = map[string]func(call otto.FunctionCall) otto.Value{
 	"iri":   oneStringType(func(s string) quad.Value { return quad.IRI(s) }),
-	"bnode": oneStringType(func(s string) quad.Value { return quad.BNode(s) }),
+	"bnode": oneStringType(func(s string) quad.Value { return quad.StringBNode(s) }),
 	"raw":   oneStringType(func(s string) quad.Value { return quad.Raw(s) }),
 	"str":   oneStringType(func(s string) quad.Value { return quad.String(s) }),
 

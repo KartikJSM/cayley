@@ -138,7 +138,7 @@ var testNQuads = []struct {
 		expect: quad.Quad{
 			Subject:   quad.IRI("http://example/s"),
 			Predicate: quad.IRI("http://example/p"),
-			Object:    quad.BNode("o"),
+			Object:    quad.StringBNode("o"),
 			Label:     nil,
 		},
 	},
@@ -198,7 +198,7 @@ var testNQuads = []struct {
 		message: "parse triple with commment",
 		input:   `_:100000 </film/performance/actor> </en/larry_fine_1902> . # example from 30movies`,
 		expect: quad.Quad{
-			Subject:   quad.BNode("100000"),
+			Subject:   quad.StringBNode("100000"),
 			Predicate: quad.IRI("/film/performance/actor"),
 			Object:    quad.IRI("/en/larry_fine_1902"),
 			Label:     nil,
@@ -210,7 +210,7 @@ var testNQuads = []struct {
 		message: "parse triple with commment",
 		input:   `_:10011 </film/performance/character> "Tomás de Torquemada" . # example from 30movies with unicode`,
 		expect: quad.Quad{
-			Subject:   quad.BNode("10011"),
+			Subject:   quad.StringBNode("10011"),
 			Predicate: quad.IRI("/film/performance/character"),
 			Object:    quad.String("Tomás de Torquemada"),
 			Label:     nil,
@@ -234,7 +234,7 @@ var testNQuads = []struct {
 		message: "parse triple with blank subject node, literal object and no comment (1)",
 		input:   `_:subject1 <http://an.example/predicate1> "object1" .`,
 		expect: quad.Quad{
-			Subject:   quad.BNode("subject1"),
+			Subject:   quad.StringBNode("subject1"),
 			Predicate: quad.IRI("http://an.example/predicate1"),
 			Object:    quad.String("object1"),
 			Label:     nil,
@@ -245,7 +245,7 @@ var testNQuads = []struct {
 		message: "parse triple with blank subject node, literal object and no comment (2)",
 		input:   `_:subject2 <http://an.example/predicate2> "object2" .`,
 		expect: quad.Quad{
-			Subject:   quad.BNode("subject2"),
+			Subject:   quad.StringBNode("subject2"),
 			Predicate: quad.IRI("http://an.example/predicate2"),
 			Object:    quad.String("object2"),
 			Label:     nil,
@@ -271,9 +271,9 @@ var testNQuads = []struct {
 		message: "parse triple with blank node labelled subject and object and IRIREF predicate (1)",
 		input:   `_:alice <http://xmlns.com/foaf/0.1/knows> _:bob .`,
 		expect: quad.Quad{
-			Subject:   quad.BNode("alice"),
+			Subject:   quad.StringBNode("alice"),
 			Predicate: quad.IRI("http://xmlns.com/foaf/0.1/knows"),
-			Object:    quad.BNode("bob"),
+			Object:    quad.StringBNode("bob"),
 			Label:     nil,
 		},
 		err: nil,
@@ -282,9 +282,9 @@ var testNQuads = []struct {
 		message: "parse triple with blank node labelled subject and object and IRIREF predicate (2)",
 		input:   `_:bob <http://xmlns.com/foaf/0.1/knows> _:alice .`,
 		expect: quad.Quad{
-			Subject:   quad.BNode("bob"),
+			Subject:   quad.StringBNode("bob"),
 			Predicate: quad.IRI("http://xmlns.com/foaf/0.1/knows"),
-			Object:    quad.BNode("alice"),
+			Object:    quad.StringBNode("alice"),
 			Label:     nil,
 		},
 		err: nil,
@@ -306,7 +306,7 @@ var testNQuads = []struct {
 		message: "parse quad with blank subject node, literal object, IRIREF predicate and label, and no comment (1)",
 		input:   `_:subject1 <http://an.example/predicate1> "object1" <http://example.org/graph1> .`,
 		expect: quad.Quad{
-			Subject:   quad.BNode("subject1"),
+			Subject:   quad.StringBNode("subject1"),
 			Predicate: quad.IRI("http://an.example/predicate1"),
 			Object:    quad.String("object1"),
 			Label:     quad.IRI("http://example.org/graph1"),
@@ -317,7 +317,7 @@ var testNQuads = []struct {
 		message: "parse quad with blank subject node, literal object, IRIREF predicate and label, and no comment (2)",
 		input:   `_:subject2 <http://an.example/predicate2> "object2" <http://example.org/graph5> .`,
 		expect: quad.Quad{
-			Subject:   quad.BNode("subject2"),
+			Subject:   quad.StringBNode("subject2"),
 			Predicate: quad.IRI("http://an.example/predicate2"),
 			Object:    quad.String("object2"),
 			Label:     quad.IRI("http://example.org/graph5"),
@@ -343,9 +343,9 @@ var testNQuads = []struct {
 		message: "parse quad with blank node labelled subject and object and IRIREF predicate and label (1)",
 		input:   `_:alice <http://xmlns.com/foaf/0.1/knows> _:bob <http://example.org/graphs/john> .`,
 		expect: quad.Quad{
-			Subject:   quad.BNode("alice"),
+			Subject:   quad.StringBNode("alice"),
 			Predicate: quad.IRI("http://xmlns.com/foaf/0.1/knows"),
-			Object:    quad.BNode("bob"),
+			Object:    quad.StringBNode("bob"),
 			Label:     quad.IRI("http://example.org/graphs/john"),
 		},
 		err: nil,
@@ -354,9 +354,9 @@ var testNQuads = []struct {
 		message: "parse quad with blank node labelled subject and object and IRIREF predicate and label (2)",
 		input:   `_:bob <http://xmlns.com/foaf/0.1/knows> _:alice <http://example.org/graphs/james> .`,
 		expect: quad.Quad{
-			Subject:   quad.BNode("bob"),
+			Subject:   quad.StringBNode("bob"),
 			Predicate: quad.IRI("http://xmlns.com/foaf/0.1/knows"),
-			Object:    quad.BNode("alice"),
+			Object:    quad.StringBNode("alice"),
 			Label:     quad.IRI("http://example.org/graphs/james"),
 		},
 		err: nil,
